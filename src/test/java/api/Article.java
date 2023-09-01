@@ -1,8 +1,8 @@
 package api;
 
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Data
 @ToString
