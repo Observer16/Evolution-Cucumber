@@ -7,9 +7,7 @@ import io.cucumber.java.en.Then;
 import io.restassured.response.ValidatableResponse;
 import org.junit.Assert;
 import service.ArticleService;
-
 import java.util.List;
-
 import static context.RunContext.RUN_CONTEXT;
 
 public class ArticleMyStepdefs {
