@@ -2,13 +2,11 @@ import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
-
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = {"pretty", "html:target/cucumber"},
+        plugin = {"pretty"},
         features = "src/test/resources/features",
-        glue = {"steps", "hooks"},
-        tags = "@all"
-)
-public class RunnerTest {
+        publish = true)
+public class RunCucumberTest {
 }
+

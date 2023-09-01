@@ -1,9 +1,12 @@
 Feature: Get Articles
   User needed get the list of Articles
 
-  Scenario Template: Send request for getting list of articles
+  Scenario Template: : Sent request for getting articles
 
-    Given Get Articles "<URL>" Request and get response with "<Status>" status
+    Given Get Articles "<URL>" Request
+    Then Response code is: "<status>"
     Examples:
-      | URL           | Status |
+      | URL           | status |
       | articles.json | 200    |
+      |               | 404    |
+      | wrong.json    | 404    |
