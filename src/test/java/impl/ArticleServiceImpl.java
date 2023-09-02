@@ -19,7 +19,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> getArticles(String url) {
-        String URL = testConfig.getURL() + url;
+        String URL = testConfig.getURL1() + url;
 
         List<Article> articles = new ArrayList<>();
 
