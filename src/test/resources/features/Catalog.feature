@@ -6,5 +6,8 @@
       Сценарий: Отправить запрос для получения иерархии категорий
 
         Дано выполнен GET запрос на URL "/categories". Полученный ответ сохранен в переменную "response"
-        И Response status code is: "200"
+          | type   | name         | value            |
+          | header | accept       | application/json |
+          | header | content-type | application/json |
+        И ответ содержит статус код 200
         #Тогда получаем каталог товаров первого уровня из ответа "response" и записываем "<ID>" в переменную

@@ -35,7 +35,10 @@ public class BaseTest {
 
     public void sendRequest(String url, String variableName, Method method) {
         String requestUrl = testConfig.getURL() + url;
-        RequestSpecification request = given().header("accept", "application/json");
+        RequestSpecification request = given();
+/*                .header("accept", "application/json")
+                .header("Content-Type", "application/json");
+*/
 
         try {
             authToken = TokenManager.readTokenFromFile();
