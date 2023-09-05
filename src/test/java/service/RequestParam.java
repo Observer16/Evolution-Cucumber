@@ -1,6 +1,5 @@
 package service;
 
-import io.cucumber.java.DataTableType;
 import lombok.*;
 
 @Data

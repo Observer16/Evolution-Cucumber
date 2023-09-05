@@ -1,25 +1,27 @@
 package steps;
 
-import config.TestConfig;
-import context.RunContext;
-import impl.BaseTest;
+import java.io.IOException;
+import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 import io.cucumber.java.DataTableType;
 import io.cucumber.java.ru.И;
 import io.restassured.response.Response;
 import lombok.extern.log4j.Log4j2;
-import service.HttpClient;
-import service.RequestParam;
-import service.RequestParamType;
 
 import java.util.List;
 import java.util.Map;
-
-import static context.RunContext.RUN_CONTEXT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import service.HttpClient;
+import service.RequestParam;
+import service.RequestParamType;
+import service.SchemaMapping;
+import config.TestConfig;
+import impl.BaseTest;
+import static context.RunContext.RUN_CONTEXT;
 
 @Log4j2
 public class ApiSteps extends BaseTest {
 
+    private final SchemaMapping schemaMapping = new SchemaMapping();
     TestConfig testConfig = new TestConfig();
     HttpClient httpClient = new HttpClient();
 
@@ -37,6 +39,13 @@ public class ApiSteps extends BaseTest {
         Response response = httpClient.sendRequest(method, address, paramsTable);
         RUN_CONTEXT.put(variableName, response);
         System.out.println(response.asPrettyString());
+        // Определяем, какую схему использовать на основе URL с использованием SchemaMapping
+        String schemaFilePath = schemaMapping.getSchemaPath(url);
+
+        if (schemaFilePath == null) {
+            log.warn("Для URL {} не найдена соответствующая схема JSON.", url);
+            return;
+        }
     }
 
     @И("ответ содержит статус код {int}")

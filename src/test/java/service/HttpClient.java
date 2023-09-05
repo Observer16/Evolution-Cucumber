@@ -13,7 +13,6 @@ import static io.restassured.RestAssured.given;
 import static java.lang.String.format;
 import org.testng.annotations.BeforeMethod;
 
-
 public class HttpClient {
 
     public static final ResponseSpecBuilder respSpec = new ResponseSpecBuilder();
