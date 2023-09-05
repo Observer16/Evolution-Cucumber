@@ -67,7 +67,7 @@ public class BaseTest {
         RUN_CONTEXT.put(variableName, validatableResponse);
     }
 
-
+/*
     public void sendRequestWithBody(String url, String body, String variableName, Method method) {
         String requestUrl = testConfig.getURL() + url;
         RequestSpecification request = given()
@@ -87,5 +87,5 @@ public class BaseTest {
             // Add other methods as needed
             default -> throw new IllegalArgumentException("Unsupported HTTP method: " + method);
         };
-    }
+    }*/
 }
