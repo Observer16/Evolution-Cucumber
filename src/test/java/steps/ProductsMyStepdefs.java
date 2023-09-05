@@ -10,7 +10,5 @@ import static context.RunContext.RUN_CONTEXT;
 
 public class ProductsMyStepdefs extends BaseTest {
 
-    @Тогда("проверяем, что ответ {string} соответствует ожидаемой схеме")
-    public void проверяемЧтоОтветСоответствуетОжидаемойСхеме(String arg0) {
-    }
+
 }

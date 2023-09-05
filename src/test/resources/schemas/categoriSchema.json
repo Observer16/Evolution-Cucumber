@@ -1,0 +1,74 @@
+{
+  "title": "categori",
+  "description": "Auto generated JSON schema based on the 'categori' file",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "categories": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "image": {
+                "type": "object",
+                "properties": {
+                  "alternative": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                }
+              },
+              "code": {
+                "type": "string"
+              },
+              "icon": {
+                "type": "object",
+                "properties": {
+                  "alternative": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                }
+              },
+              "parentCategoryId": {
+                "type": "string"
+              },
+              "parentNodeId": {
+                "type": "number"
+              },
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "nodeId": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
