@@ -20,8 +20,8 @@ import static context.RunContext.RUN_CONTEXT;
 
 public class CatalogMyStepdefs extends BaseTest {
 
-    @Затем("^выполнен (GET|DELETE) запрос на URL \"([^\"]*)\". Полученный ответ сохранен в переменную \"([^\"]*)\"$")
+/*    @Затем("^выполнен (GET|DELETE) запрос на URL \"([^\"]*)\". Полученный ответ сохранен в переменную \"([^\"]*)\"$")
     public void getCategoriesRequest(String method, String url, String variableName) {
         sendRequest(url, variableName, Method.valueOf(method));
-    }
+    }*/
 }
