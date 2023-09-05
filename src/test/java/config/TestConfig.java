@@ -11,6 +11,6 @@ public class TestConfig {
 
     public static final String AUTH_TOKEN = PATH + "/authToken.txt";
 
-    public static final String SCHEMA_PATH = "src/test/resources/schemas";
+    public static final String SCHEMA_PATH = "src/test/resources/schemas/";
 }
 

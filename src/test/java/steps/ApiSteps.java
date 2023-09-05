@@ -1,12 +1,12 @@
 package steps;
 
-import java.io.IOException;
-import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 import io.cucumber.java.DataTableType;
 import io.cucumber.java.ru.И;
 import io.restassured.response.Response;
-import lombok.extern.log4j.Log4j2;
+import io.restassured.response.ValidatableResponse;
+//import lombok.extern.log4j.Log4j2;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,9 +18,15 @@ import config.TestConfig;
 import impl.BaseTest;
 import static context.RunContext.RUN_CONTEXT;
 
-@Log4j2
+import io.restassured.module.jsv.JsonSchemaValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+//@Log4j2
 public class ApiSteps extends BaseTest {
 
+    private static final Logger log = LoggerFactory.getLogger(ApiSteps.class);
     private final SchemaMapping schemaMapping = new SchemaMapping();
     TestConfig testConfig = new TestConfig();
     HttpClient httpClient = new HttpClient();
@@ -38,13 +44,29 @@ public class ApiSteps extends BaseTest {
         log.info("Отправка {} запроса на URL: {}", method, address);
         Response response = httpClient.sendRequest(method, address, paramsTable);
         RUN_CONTEXT.put(variableName, response);
-        System.out.println(response.asPrettyString());
-        // Определяем, какую схему использовать на основе URL с использованием SchemaMapping
+
         String schemaFilePath = schemaMapping.getSchemaPath(url);
 
         if (schemaFilePath == null) {
             log.warn("Для URL {} не найдена соответствующая схема JSON.", url);
             return;
+        }
+
+        File schemaFile = new File(schemaFilePath);
+
+        if (!schemaFile.exists()) {
+            log.warn("Файл схемы JSON '{}' не существует. Не выполняем валидацию.", schemaFilePath);
+            return;
+        }
+
+        ValidatableResponse validatableResponse = response.then()
+                .body(JsonSchemaValidator.matchesJsonSchema(schemaFile));
+
+        if (!validatableResponse.extract().body().asString().isEmpty()) {
+            log.error("Схема JSON не соответствует ожидаемой схеме:");
+            log.error(validatableResponse.extract().body().asString());
+        } else {
+            log.info("Схема JSON соответствует ожидаемой схеме.");
         }
     }
 
