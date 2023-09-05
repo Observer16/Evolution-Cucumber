@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ApiSteps extends BaseTest {
 
     TestConfig testConfig = new TestConfig();
-    RunContext runContext;
     HttpClient httpClient = new HttpClient();
 
     @DataTableType
@@ -36,8 +35,8 @@ public class ApiSteps extends BaseTest {
         String address = testConfig.getURL() + url;
         log.info("Отправка {} запроса на URL: {}", method, address);
         Response response = httpClient.sendRequest(method, address, paramsTable);
-        System.out.println(paramsTable);
         RUN_CONTEXT.put(variableName, response);
+        System.out.println(response.asPrettyString());
     }
 
     @И("ответ содержит статус код {int}")
