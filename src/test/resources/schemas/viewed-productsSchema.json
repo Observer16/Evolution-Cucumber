@@ -1,0 +1,175 @@
+{
+  "title": "viewed-products",
+  "description": "Auto generated JSON schema based on the 'viewed-products' file",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "viewedProducts": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "images": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "alternative": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "code": {
+                "type": "string"
+              },
+              "rating": {
+                "type": "number"
+              },
+              "type": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "article": {
+                "type": "string"
+              },
+              "price": {
+                "type": "object",
+                "properties": {
+                  "additional": {
+                    "type": "array",
+                    "items": {
+                      "properties": {
+                        "unit": {
+                          "type": "string"
+                        },
+                        "price": {
+                          "type": "number"
+                        },
+                        "currency": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "main": {
+                    "type": "object",
+                    "properties": {
+                      "unit": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": "number"
+                      },
+                      "currency": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "base": {
+                    "type": "object",
+                    "properties": {
+                      "price": {
+                        "type": "number"
+                      },
+                      "currency": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "nameplates": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "bgColor": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "object",
+                      "properties": {
+                        "alternative": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "textColor": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "id": {
+                "type": "string"
+              },
+              "isFavourite": {
+                "type": "boolean"
+              },
+              "categoryId": {
+                "type": "string"
+              },
+              "inBasket": {
+                "type": "number"
+              },
+              "properties": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    },
+                    "group": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

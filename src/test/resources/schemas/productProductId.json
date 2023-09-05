@@ -1,0 +1,111 @@
+{
+  "data": {
+    "product": {
+      "id": "577087",
+      "code": "142-noutbuk-apple-macbook-pro-serebristyj",
+      "type": "simple",
+      "title": "14.2\" Ноутбук Apple MacBook Pro серебристый",
+      "article": "5098422",
+      "rating": 4.7,
+      "images": [
+        {
+          "type": "image",
+          "title": "string",
+          "url": "string",
+          "alternative": "string"
+        }
+      ],
+      "price": {
+        "base": {
+          "price": 119900,
+          "currency": "RUB"
+        },
+        "main": {
+          "price": 119900,
+          "currency": "RUB",
+          "unit": "шт"
+        },
+        "additional": [
+          {
+            "price": 119900,
+            "currency": "RUB",
+            "unit": "шт"
+          }
+        ]
+      },
+      "categoryId": "string",
+      "inBasket": 1,
+      "nameplates": [
+        {
+          "type": "new",
+          "title": "Новинка",
+          "url": "/catalog/",
+          "bgColor": "#FFC72C",
+          "textColor": "#1C1C1C",
+          "icon": {
+            "type": "image",
+            "title": "string",
+            "url": "string",
+            "alternative": "string"
+          }
+        }
+      ],
+      "isFavourite": true,
+      "description": "Удобные кроссовки Kappa Selecto станут оптимальным вариантом для мужчин, которые предпочитают практичный спортивный стиль.\n",
+      "video": [
+        {
+          "type": "youtube",
+          "title": "string",
+          "url": "string",
+          "preview": {
+            "type": "image",
+            "title": "string",
+            "url": "string",
+            "alternative": "string"
+          }
+        }
+      ],
+      "files": [
+        {
+          "type": "file",
+          "title": "string",
+          "url": "string",
+          "size": 1048576,
+          "mimetype": "application/pdf"
+        }
+      ],
+      "properties": [
+        {
+          "id": "0189bf14-906e-72a7-9fcf-dc3d5a23267c",
+          "code": "impregnation",
+          "title": "Антибактериальная пропитка",
+          "group": "Общие характеристики",
+          "type": "boolean",
+          "value": "string"
+        }
+      ],
+      "offers": [
+        {
+          "code": "size",
+          "property": "Размер",
+          "variants": [
+            {
+              "value": "42",
+              "id": "577087",
+              "code": "142-noutbuk-apple-macbook-pro-serebristyj",
+              "article": "5098422",
+              "image": {
+                "type": "image",
+                "title": "string",
+                "url": "string",
+                "alternative": "string"
+              },
+              "categoryId": "string",
+              "isCurrent": true
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
