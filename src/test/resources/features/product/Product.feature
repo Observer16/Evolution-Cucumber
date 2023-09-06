@@ -4,7 +4,10 @@
 
     Сценарий: Отправить запрос для получения иерархии категорий
 
-      Дано выполнен GET запрос на URL "/product/27963050299" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
+      Дано продукт с идентификатором
+        |27963050299 |
+
+      Дано выполнен GET запрос на URL "/product/" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
         | type   | name         | value            |
         | header | accept       | application/json |
         | header | content-type | application/json |

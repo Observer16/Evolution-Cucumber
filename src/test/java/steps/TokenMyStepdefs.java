@@ -28,6 +28,12 @@ public class TokenMyStepdefs extends BaseTest {
 
     private int currentStepIndex = 0;
 
+    /**
+     * Создает объект тела токена и сохраняет его в переменную.
+     *
+     * @param  variableName    имя переменной, в которую нужно сохранить объект тела токена
+     * @param  dataTable       таблица данных, содержащая информацию о сборке, версии и платформе
+     */
     @Затем("создан объект и сохранен в переменную {string}")
     public void createTokenBody(String variableName, DataTable dataTable) {
         List<Map<String, String>> data = dataTable.asMaps();
@@ -54,7 +60,12 @@ public class TokenMyStepdefs extends BaseTest {
         }
     }
 
-
+    /**
+     * Получает гостевой токен из заголовка ответа и записывает его в переменную.
+     *
+     * @param  responseVariable  строка, содержащая имя переменной с объектом Response
+     * @param  tokenVariable     строка, содержащая имя переменной, в которую будет записан гостевой токен
+     */
     @Тогда("получаем гостевой токен из заголовка ответа {string} и записываем его в переменную {string}")
     public void getGuestToken(String responseVariable, String tokenVariable) {
         Response response = RUN_CONTEXT.get(responseVariable, Response.class);
@@ -64,6 +75,11 @@ public class TokenMyStepdefs extends BaseTest {
         RUN_CONTEXT.put(tokenVariable, authToken);
     }
 
+    /**
+     * Сохраняет указанный токен в файл.
+     *
+     * @param  token токен для сохранения
+     */
     private void saveTokenToFile(String token) {
         try {
             FileWriter fileWriter = new FileWriter(TestConfig.AUTH_TOKEN);
