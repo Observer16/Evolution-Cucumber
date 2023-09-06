@@ -1,16 +1,11 @@
 package steps;
 
 import config.TestConfig;
-import context.RunContext;
 import impl.BaseTest;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.ru.Затем;
-import io.cucumber.java.ru.И;
-import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
-import io.restassured.http.Method;
 import io.restassured.response.Response;
-import io.restassured.response.ValidatableResponse;
 import lombok.extern.log4j.Log4j2;
 import model.TokenBody;
 import java.io.BufferedWriter;

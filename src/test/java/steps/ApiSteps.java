@@ -14,6 +14,7 @@ import impl.BaseTest;
 import static context.RunContext.RUN_CONTEXT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import service.JsonSchemaValidatorHelper; ;
 
 public class ApiSteps extends BaseTest {
     private static final Logger log = LoggerFactory.getLogger(ApiSteps.class);
@@ -41,20 +42,21 @@ public class ApiSteps extends BaseTest {
      *
      * @param  method         метод HTTP (GET, POST, PUT или DELETE)
      * @param  url            URL для отправки запроса
-     * @param  variableName   имя переменной, в которой нужно сохранить ответ
+     * @param  variableName   имя переменной, в которую нужно сохранить ответ
      * @param  paramsTable    таблица с заголовками и параметрами для запроса
      */
-    @И("^выполнен (GET|POST|PUT|DELETE) запрос на URL \"([^\"]*)\" с headers и parameters из таблицы. Полученный ответ сохранен в переменную \"([^\"]*)\"$")
+    @И("^выполнен (GET|POST|PUT|DELETE|PATCH) запрос на URL \"([^\"]*)\" с headers и parameters из таблицы. Полученный ответ сохранен в переменную \"([^\"]*)\"$")
     public void sendHttpRequestSaveResponse(String method, String url, String variableName, List<RequestParam> paramsTable) {
         String productId = RUN_CONTEXT.get("productId", String.class);
         String address = testConfig.getURL() + url;
-        if (productId != null) {
-            address += productId;
+        if (productId != null && address.contains("{productId}")) {
+            address = address.replace("{productId}", productId);
         }
         log.info("Отправка {} запроса на URL: {}", method, address);
         Response response = httpClient.sendRequest(method, address, paramsTable);
         RUN_CONTEXT.put(variableName, response);
-        // Удаление productId
+
+        // Clear productId
         RUN_CONTEXT.deleteKey("productId");
     }
 
@@ -72,14 +74,20 @@ public class ApiSteps extends BaseTest {
     /**
      * Проверяет, что ответ соответствует ожидаемой схеме.
      *
-     * @param  schemaFilePath    путь к файлу схемы
+     * @param  nameSchema    название файла схемы
      */
-    @Тогда("проверяем, что ответ {string} соответствует ожидаемой схеме")
-    public void CheckingThatResponseMatchesExpectedPattern(String schemaFilePath) {
+    @Тогда("проверяем, что схема {string} соответствует схеме из ответа")
+    public void CheckingResponseMatchesExpectedPattern(String nameSchema) {
         Response response = RUN_CONTEXT.get("response", Response.class);
-        JsonSchemaValidatorHelper.validateResponseAgainstSchema(response, schemaFilePath);
+        JsonSchemaValidatorHelper.validateResponseAgainstSchema(response, nameSchema);
     }
 
+    /**
+     * Устанавливает идентификатор продукта.
+     *
+     * @param  arg  продукт с идентификатором
+     *
+     */
     @Дано("продукт с идентификатором")
     public void ProductId(List<String> arg) {
         String productId = arg.get(0);

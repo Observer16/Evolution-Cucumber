@@ -32,13 +32,13 @@ public class BaseTest {
     }
 
     TestConfig testConfig = new TestConfig();
-
+/*
     public void sendRequest(String url, String variableName, Method method) {
         String requestUrl = testConfig.getURL() + url;
         RequestSpecification request = given();
-/*                .header("accept", "application/json")
+*//*                .header("accept", "application/json")
                 .header("Content-Type", "application/json");
-*/
+*//*
 
         try {
             authToken = TokenManager.readTokenFromFile();
@@ -65,7 +65,7 @@ public class BaseTest {
         };
         ValidatableResponse validatableResponse = response.then();
         RUN_CONTEXT.put(variableName, validatableResponse);
-    }
+    }*/
 
 /*
     public void sendRequestWithBody(String url, String body, String variableName, Method method) {

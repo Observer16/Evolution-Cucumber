@@ -9,8 +9,8 @@
       |header    |content-type  |application/json  |
       |parameter |categoryId    |1003001           |
       |parameter |page          |1                 |
-      |parameter |limit         |2                 |
+      |parameter |limit         |1                 |
 
       И ответ содержит статус код 200
 
-      Тогда проверяем, что ответ "response" соответствует ожидаемой схеме
+      Тогда проверяем, что схема "productsSchema.json" соответствует схеме из ответа

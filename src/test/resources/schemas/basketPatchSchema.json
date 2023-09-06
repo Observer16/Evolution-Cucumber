@@ -1,0 +1,20 @@
+{
+  "title": "basketPatch",
+  "description": "Auto generated JSON schema based on the 'basketPatch' file",
+  "type": "object",
+  "properties": {
+    "batch": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "quantity": {
+            "type": "number"
+          },
+          "productId": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
