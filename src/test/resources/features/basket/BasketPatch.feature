@@ -11,7 +11,7 @@
         |productId    |quantity |
         |27963050299  |3        |
 
-      Затем выполнен PATCH запрос на URL "/auth/token" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
+      Затем выполнен PATCH запрос на URL "/basket" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
         | type   | name         | value            |
         | header | accept       | application/json |
         | header | content-type | application/json |
