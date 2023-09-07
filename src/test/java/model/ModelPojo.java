@@ -3,23 +3,22 @@ package model;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import io.cucumber.datatable.DataTable;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.Map;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BatchItem {
-	private int quantity;
-	private String productId;
+public class ModelPojo {
+	private String operation;
 
-	public BatchItem(Map<String, String> productParameters) {
-		this.quantity = Integer.parseInt(productParameters.get("quantity"));
-		this.productId = productParameters.get("productId");
+	public ModelPojo(Map<String, String> productParameters) {
+		this.operation = productParameters.get("operation");
 	}
 	public String asJSON() {
 		ObjectMapper jsonMapper = new JsonMapper().findAndRegisterModules();
@@ -28,7 +27,7 @@ public class BatchItem {
 		try {
 			jsonAsString = jsonMapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
 		} catch (JsonProcessingException e) {
-			throw new RuntimeException("Ошибка при сериализации BasketPatchBody", e);
+			throw new RuntimeException("Ошибка при сериализации ModelPojo", e);
 		}
 
 		return jsonAsString;
