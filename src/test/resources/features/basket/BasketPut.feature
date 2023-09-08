@@ -10,7 +10,6 @@
 
       Дано выполнен PUT запрос на URL "/basket" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
         | type   | name         | value            |
-        | header | accept       | application/json |
         | header | content-type | application/json |
         | body   | body         | {dataBody}       |
 

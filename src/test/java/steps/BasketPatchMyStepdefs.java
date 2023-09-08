@@ -55,7 +55,7 @@ public class BasketPatchMyStepdefs extends BaseTest {
     @Затем("проверяем в ответе, что количество товара с ID {string} в корзине увеличилось на {string}")
     public void проверяемВОтветеЧтоКоличествоТовараСIDВКорзинеУвеличилосьНа(String id, String inBasket) {
         Response response = RUN_CONTEXT.get("response", Response.class);
-        System.out.println(response.asPrettyString());
+        // System.out.println(response.asPrettyString());
         id = String.valueOf(RUN_CONTEXT.get("id", String.class));
         System.out.println(RUN_CONTEXT.get("inBasket", String.class));
         String responseBody = response.getBody().asString();
