@@ -1,6 +1,5 @@
 package steps;
 
-import io.cucumber.datatable.DataTable;
 import io.cucumber.java.DataTableType;
 import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.Затем;
@@ -11,8 +10,7 @@ import java.util.List;
 import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import model.ModelPojo;
-import model.basket.BasketPatchBody;
+import org.junit.jupiter.api.Assertions;
 import service.*;
 import config.TestConfig;
 import impl.BaseTest;
@@ -60,6 +58,7 @@ public class ApiSteps extends BaseTest {
         log.info("Отправка {} запроса на URL: {}", method, address);
         Response response = httpClient.sendRequest(method, address, paramsTable);
         RUN_CONTEXT.put(variableName, response);
+        System.out.println(response.asPrettyString());
 
         // Clear productId
         RUN_CONTEXT.deleteKey("productId");
@@ -99,26 +98,11 @@ public class ApiSteps extends BaseTest {
         RUN_CONTEXT.put("productId", productId);
     }
 
-    private int currentStepIndex = 0;
-    @Затем("создан объект таблицы для сохранения в переменную {string}")
-    public void createTableBody(String variableName, DataTable dataTable) {
-        List<Map<String, String>> data = dataTable.asMaps();
-
-        for (Map<String, String> row : data) {
-
-            String operation = row.get("operation");
-
-            ModelPojo modelPojo = new ModelPojo(operation);
-            String body = modelPojo.asJSON();
-
-            // Добавляем логику для проверки body и кода ответа
-            int responseCode = 400; // Пример кода ответа
-            if (responseCode == 400) {
-                RUN_CONTEXT.put("ErrorStepIndex", String.valueOf(currentStepIndex));
-            }
-
-            RUN_CONTEXT.put(variableName, body);
-            currentStepIndex++;
-        }
+    @Затем("проверяем, что в заголовке {string} токен пришел новый")
+    public void checkIfTokenIsNew(String response) {
+        Response parsedResponse = RUN_CONTEXT.get("response", Response.class);
+        String authToken = TokenManager.readTokenFromFile();
+        String newAuthToken = parsedResponse.getHeader("X-Auth-Token");
+        Assertions.assertNotEquals(authToken, newAuthToken);
     }
 }

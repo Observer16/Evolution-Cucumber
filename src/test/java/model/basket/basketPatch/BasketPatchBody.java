@@ -1,4 +1,4 @@
-package model.basket;
+package model.basket.basketPatch;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

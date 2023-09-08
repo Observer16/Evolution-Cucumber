@@ -14,11 +14,12 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ModelPojo {
-	private String operation;
+public class StateLocation {
 
-	public ModelPojo(Map<String, String> productParameters) {
-		this.operation = productParameters.get("operation");
+	private String locationId;
+
+	public StateLocation(Map<String, String> productParameters) {
+		this.locationId = productParameters.get("locationId");
 	}
 	public String asJSON() {
 		ObjectMapper jsonMapper = new JsonMapper().findAndRegisterModules();
@@ -27,7 +28,7 @@ public class ModelPojo {
 		try {
 			jsonAsString = jsonMapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
 		} catch (JsonProcessingException e) {
-			throw new RuntimeException("Ошибка при сериализации ModelPojo", e);
+			throw new RuntimeException("Ошибка при сериализации StateLocation", e);
 		}
 
 		return jsonAsString;

@@ -13,7 +13,6 @@
 
     Затем выполнен POST запрос на URL "/auth/token" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
       | type   | name         | value            |
-      | header | accept       | application/json |
       | header | content-type | application/json |
       | body   | body         | {dataBody}       |
 

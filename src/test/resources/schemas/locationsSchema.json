@@ -1,0 +1,31 @@
+{
+  "title": "locations",
+  "description": "Auto generated JSON schema based on the 'locations' file",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "locations": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "latitude": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "longitude": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

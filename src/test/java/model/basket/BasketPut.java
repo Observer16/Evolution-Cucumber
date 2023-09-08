@@ -3,10 +3,8 @@ package model.basket;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import io.cucumber.datatable.DataTable;
 import lombok.*;
 
-import java.util.List;
 import java.util.Map;
 
 @Data
@@ -14,6 +12,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BasketPut{
+
 	private String operation;
 
 	public BasketPut(Map<String, String> productParameters) {

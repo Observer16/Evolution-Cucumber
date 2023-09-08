@@ -1,12 +1,10 @@
-package model.basket;
+package model.basket.basketPatch;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import io.cucumber.datatable.DataTable;
 import lombok.*;
 
-import java.util.List;
 import java.util.Map;
 
 @Data
