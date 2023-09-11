@@ -8,13 +8,13 @@
      |login               |password           |
      |v.ivanov@mail.ru    |VerySecureP@ssw0rd |
 
-    Дано выполнен POST запрос на URL "/auth/by-login" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
+    Когда выполнен POST запрос на URL "/auth/by-login" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
      | type   | name         | value            |
      | header | content-type | application/json |
      | body   | body         | {dataBody}       |
 
     И ответ содержит статус код 204
 
-    Затем проверяем, что в заголовке "X-Auth-Token" токен пришел новый
+    И проверяем, что в заголовке "X-Auth-Token" пришел новый токен
 
-    Тогда получаем гостевой токен из заголовка ответа "response" и записываем его в переменную "X-Auth-Token"
+    Тогда получаем токен из заголовка ответа "response" и записываем его в переменную "X-Auth-Token"

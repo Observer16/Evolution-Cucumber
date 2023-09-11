@@ -52,9 +52,15 @@ public class HttpClient {
      * @param  paramsTable  список параметров запроса
      * @return              ответ, полученный от сервера
      */
-    public Response sendRequest(String method, String address,
-                                List<RequestParam> paramsTable) {
+    public Response sendRequest(String method, String address, List<RequestParam> paramsTable) {
         RequestSender request = createRequest(paramsTable);
+        Response response = request.request(Method.valueOf(method), address);
+
+        return response;
+    }
+
+    public Response sendRequestWithoutToken(String method, String address, List<RequestParam> paramsTable) {
+        RequestSender request = createRequestWithoutToken(paramsTable);
         Response response = request.request(Method.valueOf(method), address);
 
         return response;
@@ -73,6 +79,42 @@ public class HttpClient {
         // Добавляем токен в заголовок
         authToken = TokenManager.readTokenFromFile();
         request.header("X-Auth-Token", authToken);
+
+        for (RequestParam requestParam : paramsTable) {
+            String name = requestParam.getName();
+            String value = requestParam.getValue();
+            switch (requestParam.getType()) {
+                case PATH:
+                    request.pathParam(name, value);
+                    break;
+                case PARAMETER:
+                    request.param(name, value);
+                    break;
+                case HEADER:
+                    request.header(name, value);
+                    break;
+                case BODY:
+                    value = RUN_CONTEXT.get("dataBody", String.class);
+                    dataBody = value;
+                    request.body(dataBody);
+                    break;
+                default:
+                    throw new IllegalArgumentException(format("Некорректно задан тип %s для параметра запроса %s ", requestParam.getType(), name));
+            }
+        }
+        if (dataBody != null) {
+            System.out.println("Тело запроса:\n" + dataBody);
+        }
+        return request;
+    }
+
+    public RequestSender createRequestWithoutToken(List<RequestParam> paramsTable) {
+        String dataBody = null;
+        RequestSpecification request = given();
+
+        // Добавляем токен в заголовок
+        //authToken = TokenManager.readTokenFromFile();
+        //request.header("X-Auth-Token", authToken);
 
         for (RequestParam requestParam : paramsTable) {
             String name = requestParam.getName();

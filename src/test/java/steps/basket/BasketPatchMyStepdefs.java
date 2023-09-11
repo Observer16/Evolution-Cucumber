@@ -1,4 +1,4 @@
-package steps;
+package steps.basket;
 
 import impl.BaseTest;
 import io.cucumber.datatable.DataTable;

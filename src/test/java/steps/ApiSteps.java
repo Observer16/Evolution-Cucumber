@@ -1,15 +1,11 @@
 package steps;
 
 import io.cucumber.java.DataTableType;
-import io.cucumber.java.ru.Дано;
-import io.cucumber.java.ru.Затем;
-import io.cucumber.java.ru.И;
-import io.cucumber.java.ru.Тогда;
+import io.cucumber.java.ru.*;
 import io.restassured.response.Response;
 import java.util.List;
 import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Assertions;
 import service.*;
 import config.TestConfig;
@@ -48,7 +44,7 @@ public class ApiSteps extends BaseTest {
      * @param  variableName   имя переменной, в которую нужно сохранить ответ
      * @param  paramsTable    таблица с заголовками и параметрами для запроса
      */
-    @И("^выполнен (GET|POST|PUT|DELETE|PATCH) запрос на URL \"([^\"]*)\" с headers и parameters из таблицы. Полученный ответ сохранен в переменную \"([^\"]*)\"$")
+    @Когда("^выполнен (GET|POST|PUT|DELETE|PATCH) запрос на URL \"([^\"]*)\" с headers и parameters из таблицы. Полученный ответ сохранен в переменную \"([^\"]*)\"$")
     public void sendHttpRequestSaveResponse(String method, String url, String variableName, List<RequestParam> paramsTable) {
         String productId = RUN_CONTEXT.get("productId", String.class);
         String address = testConfig.getURL() + url;
@@ -98,11 +94,21 @@ public class ApiSteps extends BaseTest {
         RUN_CONTEXT.put("productId", productId);
     }
 
-    @Затем("проверяем, что в заголовке {string} токен пришел новый")
+    @Затем("проверяем, что в заголовке {string} пришел новый токен")
     public void checkIfTokenIsNew(String response) {
         Response parsedResponse = RUN_CONTEXT.get("response", Response.class);
         String authToken = TokenManager.readTokenFromFile();
         String newAuthToken = parsedResponse.getHeader("X-Auth-Token");
         Assertions.assertNotEquals(authToken, newAuthToken);
     }
+
+    @И("^выполняем (GET|POST|PUT|DELETE|PATCH) запрос на URL \"([^\"]*)\" для получения данных из профиля пользователя. Полученный ответ сохранен в переменную \"([^\"]*)\"$")
+    public void checkAuthPassedWhenLogInUserProfile(String method, String url, String variableName, List<RequestParam> paramsTable) {
+        String address = testConfig.getURL() + url;
+        log.info("Отправка {} запроса на URL: {}", method, address);
+        Response response = httpClient.sendRequest(method, address, paramsTable);
+        RUN_CONTEXT.put(variableName, response);
+        System.out.println(response.asPrettyString());
+    }
+
 }

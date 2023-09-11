@@ -3,11 +3,16 @@ package steps;
 import config.TestConfig;
 import impl.BaseTest;
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.Затем;
 import io.cucumber.java.ru.Тогда;
+import io.restassured.http.Method;
 import io.restassured.response.Response;
 import lombok.extern.log4j.Log4j2;
 import model.TokenBody;
+import service.HttpClient;
+import service.RequestParam;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,8 +25,10 @@ import static context.RunContext.RUN_CONTEXT;
 @Log4j2
 public class TokenMyStepdefs extends BaseTest {
 
-
+    TestConfig testConfig = new TestConfig();
+    HttpClient httpClient = new HttpClient();
     private int currentStepIndex = 0;
+
 
     /**
      * Создает объект тела токена и сохраняет его в переменную.
@@ -29,7 +36,7 @@ public class TokenMyStepdefs extends BaseTest {
      * @param  variableName    имя переменной, в которую нужно сохранить объект тела токена
      * @param  dataTable       таблица данных, содержащая информацию о сборке, версии и платформе
      */
-    @Затем("создан объект и сохранен в переменную {string}")
+    @Дано("создан объект и сохранен в переменную {string}")
     public void createTokenBody(String variableName, DataTable dataTable) {
         List<Map<String, String>> data = dataTable.asMaps();
 
@@ -41,7 +48,7 @@ public class TokenMyStepdefs extends BaseTest {
             TokenBody tokenBody = new TokenBody(build, version, platform);
             String body = tokenBody.asJSON();
 
-            // Добавьте здесь логику для проверки body и кода ответа
+            // Добавляем логику для проверки body и кода ответа
             int responseCode = 400; // Пример кода ответа
             if (responseCode == 400) {
                 RUN_CONTEXT.put("ErrorStepIndex", String.valueOf(currentStepIndex));
@@ -55,13 +62,28 @@ public class TokenMyStepdefs extends BaseTest {
         }
     }
 
+    @Затем("^выполнен (GET|POST|PUT|DELETE|PATCH) запрос на URL \"([^\"]*)\" и ответ записан в переменную \"([^\"]*)\"$")
+    public void sendRequestWithBody(String method, String url, String variableName, List<RequestParam> paramsTable) {
+        String productId = RUN_CONTEXT.get("productId", String.class);
+        String address = testConfig.getURL() + url;
+        if (productId != null && address.contains("{productId}")) {
+            address = address.replace("{productId}", productId);
+        }
+        log.info("Отправка {} запроса на URL: {}", method, address);
+        Response response = httpClient.sendRequestWithoutToken(method, address, paramsTable);
+        RUN_CONTEXT.put(variableName, response);
+
+        //String newAuthToken = response.getHeader("X-Auth-Token");
+    }
+
+
     /**
      * Получает гостевой токен из заголовка ответа и записывает его в переменную.
      *
      * @param  responseVariable  строка, содержащая имя переменной с объектом Response
      * @param  tokenVariable     строка, содержащая имя переменной, в которую будет записан гостевой токен
      */
-    @Тогда("получаем гостевой токен из заголовка ответа {string} и записываем его в переменную {string}")
+    @Тогда("получаем токен из заголовка ответа {string} и записываем его в переменную {string}")
     public void getGuestToken(String responseVariable, String tokenVariable) {
         Response response = RUN_CONTEXT.get(responseVariable, Response.class);
         String authToken = response.getHeader("X-Auth-Token");
@@ -86,3 +108,4 @@ public class TokenMyStepdefs extends BaseTest {
         }
     }
 }
+
