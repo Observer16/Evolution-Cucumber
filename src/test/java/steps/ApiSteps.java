@@ -5,6 +5,8 @@ import io.cucumber.java.ru.*;
 import io.restassured.response.Response;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Assertions;
 import service.*;
@@ -109,6 +111,28 @@ public class ApiSteps extends BaseTest {
         Response response = httpClient.sendRequest(method, address, paramsTable);
         RUN_CONTEXT.put(variableName, response);
         System.out.println(response.asPrettyString());
+    }
+
+    /**
+     * Извлекает ID профиля из ответа и проверяет, соответствует ли его формат ожидаемой маске.
+     *
+     * @param ID   ожидаемая маска ID профиля
+     * @return     void
+     */
+    @Затем("получаем из ответа {string} ID профиля и проверяем, маска ID правильная")
+    public void getProfileIdResponse(String ID) {
+        Response response = RUN_CONTEXT.get("response", Response.class);
+        String profileId = response.path("data.profile.id").toString().trim(); // Преобразование в строку и обрезка лишних символов
+
+        // Проверка соответствия маске ID с использованием регулярного выражения
+        boolean isIdMaskMatch = Pattern.matches("^[0-9a-zA-Z-]+$", profileId);
+        System.out.println(isIdMaskMatch);
+        System.out.println("profileId: [" + profileId + "]");
+
+        // Проверка пройдена, если маска ID соответствует
+        if (!isIdMaskMatch) {
+            throw new AssertionError("Маска ID не соответствует ожидаемому формату");
+        }
     }
 
 }

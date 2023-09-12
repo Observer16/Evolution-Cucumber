@@ -4,6 +4,7 @@ import config.TestConfig;
 import impl.BaseTest;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.ru.Дано;
+import io.cucumber.java.ru.Если;
 import io.cucumber.java.ru.Затем;
 import io.cucumber.java.ru.Тогда;
 import io.restassured.http.Method;
@@ -41,15 +42,14 @@ public class TokenMyStepdefs extends BaseTest {
         List<Map<String, String>> data = dataTable.asMaps();
 
         for (Map<String, String> row : data) {
-            String build = row.get("build");
-            String version = row.get("version");
-            String platform = row.get("platform");
+            String build = row.getOrDefault("build", "");
+            String version = row.getOrDefault("version", "");
+            String platform = row.getOrDefault("platform", "");
 
             TokenBody tokenBody = new TokenBody(build, version, platform);
             String body = tokenBody.asJSON();
 
-            // Добавляем логику для проверки body и кода ответа
-            int responseCode = 400; // Пример кода ответа
+            int responseCode = 400;
             if (responseCode == 400) {
                 RUN_CONTEXT.put("ErrorStepIndex", String.valueOf(currentStepIndex));
                 System.out.println(currentStepIndex);
@@ -62,6 +62,15 @@ public class TokenMyStepdefs extends BaseTest {
         }
     }
 
+    /**
+     * Отправляет запрос с телом на указанный URL и сохраняет ответ в переменную.
+     *
+     * @param  method         HTTP-метод, который будет использоваться (GET, POST, PUT, DELETE, PATCH)
+     * @param  url            URL, на который отправляется запрос
+     * @param  variableName   имя переменной, в которую нужно сохранить ответ
+     * @param  paramsTable    список параметров запроса
+     * @return                void
+     */
     @Затем("^выполнен (GET|POST|PUT|DELETE|PATCH) запрос на URL \"([^\"]*)\" и ответ записан в переменную \"([^\"]*)\"$")
     public void sendRequestWithBody(String method, String url, String variableName, List<RequestParam> paramsTable) {
         String productId = RUN_CONTEXT.get("productId", String.class);
@@ -72,8 +81,6 @@ public class TokenMyStepdefs extends BaseTest {
         log.info("Отправка {} запроса на URL: {}", method, address);
         Response response = httpClient.sendRequestWithoutToken(method, address, paramsTable);
         RUN_CONTEXT.put(variableName, response);
-
-        //String newAuthToken = response.getHeader("X-Auth-Token");
     }
 
 
@@ -101,11 +108,19 @@ public class TokenMyStepdefs extends BaseTest {
         try {
             FileWriter fileWriter = new FileWriter(TestConfig.AUTH_TOKEN);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(token);
+
+            if (token != null) {
+                bufferedWriter.write(token);
+            }
+
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Если("сценарий пройден, необходимо выйти из профиля получив гостевой токен и сохранить в переменную {string}")
+    public void logoutAndSaveTokenToFile(String arg0) {
     }
 }
 

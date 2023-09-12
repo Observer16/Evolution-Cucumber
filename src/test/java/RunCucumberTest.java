@@ -9,8 +9,9 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         plugin = {"pretty"},
         features = "src/test/resources/features",
-        publish = true
-        //tags = "@startTestCase"
+        publish = true,
+        tags = "@all",
+        dryRun = false
 )
 public class RunCucumberTest {
 }
