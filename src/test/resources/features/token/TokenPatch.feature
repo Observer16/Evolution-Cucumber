@@ -11,7 +11,7 @@
           |Android 12  |        |Build/SP1A.210812 |
           |Android 12  |2.1.0   |                  |
 
-        Затем с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
+        Затем выполнен PATCH запрос на URL "/auth/token" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
           | type   | name         | value            |
           | header | content-type | application/json |
           | body   | body         | {dataBody}       |
