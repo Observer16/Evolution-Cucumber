@@ -24,7 +24,7 @@
         |Android 12  |        |Build/SP1A.210812 |
         |Android 12  |2.1.0   |                  |
 
-      Затем выполнен PATCH запрос на URL "/auth/token" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
+      Когда выполнен PATCH запрос на URL "/auth/token" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
         | type   | name         | value            |
         | header | content-type | application/json |
         | body   | body         | {dataBody}       |
@@ -40,9 +40,24 @@
         |platform    |version |build             |
         |            |2.1.0   |Build/SP1A.210812 |
 
-      Когда выполнен POST запрос на URL "/auth/token" и ответ записан в переменную "response"
+      Когда выполнен PATCH запрос на URL "/auth/token" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
         | type   | name         | value            |
         | header | content-type | application/json |
         | body   | body         | {dataBody}       |
 
       И ответ содержит статус код 400
+
+      @negative
+    Сценарий: Отправить запрос без передачи токена
+
+        Дано создан объект и сохранен в переменную "dataBody"
+          |platform    |version |build             |
+          |Android 12  |2.1.0   |Build/SP1A.210812 |
+
+        Когда выполнен PATCH запрос на URL "/auth/token" и ответ записан в переменную "response"
+          |type    | name         | value            |
+          |header  | content-type | application/json |
+          |header  | X-Auth-Token | null             |
+          |body    | body         | {dataBody}       |
+
+        И ответ содержит статус код 401
