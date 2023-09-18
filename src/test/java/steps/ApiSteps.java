@@ -110,7 +110,16 @@ public class ApiSteps extends BaseTest {
         log.info("Отправка {} запроса на URL: {}", method, address);
         Response response = httpClient.sendRequest(method, address, paramsTable);
         RUN_CONTEXT.put(variableName, response);
-        System.out.println(response.asPrettyString());
+        System.out.printf("%s%n", response.asPrettyString());
+    }
+
+    @Когда("^выполнен (GET|POST|PUT|DELETE|PATCH) запрос на URL \"([^\"]*)\" полученный ответ сохранен в переменную \"([^\"]*)\"$")
+    public void выполненPOSTЗапросНаURL(String method, String url, String variableName, List<RequestParam> paramsTable) {
+        String address = testConfig.getURL() + url;
+        log.info("Отправка {} запроса на URL: {}", method, address);
+        Response response = httpClient.sendRequest(method, address, paramsTable);
+        RUN_CONTEXT.put(variableName, response);
+        System.out.printf("%s%n", response.asPrettyString());
     }
 
     /**
