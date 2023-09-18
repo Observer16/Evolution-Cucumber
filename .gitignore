@@ -37,4 +37,4 @@ build/
 ### Mac OS ###
 .DS_Store
 /.allure/
-src/test/java/config/TestConfig.java
+TestConfig.java
