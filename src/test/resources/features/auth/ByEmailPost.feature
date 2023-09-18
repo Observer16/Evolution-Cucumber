@@ -37,3 +37,47 @@
      | header | content-type | application/json |
 
     Затем получаем из ответа "response" ID профиля и проверяем, маска ID правильная
+
+    @negative
+    Сценарий: Отправить запрос для аутентификации когда Email указан неверно
+
+     Дано создан объект таблицы для сохранения в переменную "dataBody" при аутентификации с помощью email
+      |email            |
+      |pease@mail       |
+
+     Когда выполнен POST запрос на URL "/auth/by-email" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
+      | type   | name         | value            |
+      | header | content-type | application/json |
+      | body   | body         | {dataBody}       |
+
+     И ответ содержит статус код 400
+
+     Затем проверяем, что в теле ответа "response" есть сообщение "Адрес электронной почты указан неверно"
+
+   @negative
+   Сценарий: Отправить запрос для аутентификации когда Email не подтвержден
+
+    Дано создан объект таблицы для сохранения в переменную "dataBody" при аутентификации с помощью email
+     |email                  |
+     |doesnotexist@mail.ru   |
+
+    Когда выполнен POST запрос на URL "/auth/by-email" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
+     | type   | name         | value            |
+     | header | content-type | application/json |
+     | body   | body         | {dataBody}       |
+
+    И ответ содержит статус код 400
+
+    Затем проверяем, что в теле ответа "response" есть сообщение "Email не подтвержден"
+
+   @negative
+   Сценарий: Отправить запрос для аутентификации когда Email не передается
+
+    Когда выполнен POST запрос на URL "/auth/by-email" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
+     | type   | name         | value            |
+     | header | content-type | application/json |
+     | body   | body         | {dataBody}       |
+
+    И ответ содержит статус код 400
+
+    Затем проверяем, что в теле ответа "response" есть сообщение "Пожалуйста, введите email"

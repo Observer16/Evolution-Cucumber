@@ -44,13 +44,6 @@ public class TokenMyStepdefs extends BaseTest {
             TokenBody tokenBody = new TokenBody(build, version, platform);
             String body = tokenBody.asJSON();
 
-/*
-            int responseCode = 400;
-            if (responseCode == 400) {
-                RUN_CONTEXT.put("ErrorStepIndex", String.valueOf(currentStepIndex));
-                System.out.println(currentStepIndex);
-            }*/
-
             RUN_CONTEXT.put(variableName, body);
             System.out.println(RUN_CONTEXT.get(variableName, String.class));
 

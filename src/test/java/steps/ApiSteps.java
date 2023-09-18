@@ -6,8 +6,9 @@ import io.restassured.response.Response;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import service.*;
 import config.TestConfig;
@@ -15,7 +16,7 @@ import impl.BaseTest;
 import static context.RunContext.RUN_CONTEXT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import service.JsonSchemaValidatorHelper; ;
+import service.JsonSchemaValidatorHelper;
 
 public class ApiSteps extends BaseTest {
     private static final Logger log = LoggerFactory.getLogger(ApiSteps.class);
@@ -56,9 +57,8 @@ public class ApiSteps extends BaseTest {
         log.info("Отправка {} запроса на URL: {}", method, address);
         Response response = httpClient.sendRequest(method, address, paramsTable);
         RUN_CONTEXT.put(variableName, response);
-        //System.out.println(response.asPrettyString());
+        System.out.println(response.asPrettyString());
 
-        // Clear productId
         RUN_CONTEXT.deleteKey("productId");
     }
 
@@ -135,4 +135,24 @@ public class ApiSteps extends BaseTest {
         }
     }
 
+    @Затем("проверяем, что в теле ответа {string} есть сообщение {string}")
+    public void checkResponseBodyContainsMessage(String responseVariable, String message) {
+        Response response = RUN_CONTEXT.get(responseVariable, Response.class);
+        String responseBody = response.getBody().asString();
+
+        JSONObject jsonResponse = new JSONObject(responseBody);
+        JSONArray errorsArray = jsonResponse.getJSONArray("errors");
+
+        boolean messageFound = false;
+        for (int i = 0; i < errorsArray.length(); i++) {
+            JSONObject errorObject = errorsArray.getJSONObject(i);
+            String errorMessage = errorObject.getString("message");
+            if (errorMessage.equals(message)) {
+                messageFound = true;
+                break;
+            }
+        }
+
+        Assertions.assertTrue(messageFound, "Expected message \"" + message + "\" not found in response body");
+    }
 }

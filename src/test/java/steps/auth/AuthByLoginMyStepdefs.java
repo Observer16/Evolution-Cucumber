@@ -17,7 +17,7 @@ public class AuthByLoginMyStepdefs extends BaseTest {
 
 
     private int currentStepIndex = 0;
-    @Затем("создан объект таблицы для сохранения в переменную {string} при аутентификации с помощью пары email или телефон + пароль")
+    @Затем("создан объект таблицы для сохранения в переменную {string} для проверки аутентификации")
     public void createTableBody(String variableName, DataTable dataTable) {
         List<Map<String, String>> data = dataTable.asMaps();
 
