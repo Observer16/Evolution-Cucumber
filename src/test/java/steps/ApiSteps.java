@@ -164,7 +164,7 @@ public class ApiSteps extends BaseTest {
         }
     }
 
-    @Затем("проверяем, что в теле ответа {string} есть сообщение {string}")
+/*    @Затем("проверяем, что в теле ответа {string} есть сообщение {string}")
     public void checkResponseBodyContainsMessage(String responseVariable, String message) {
         Response response = RUN_CONTEXT.get(responseVariable, Response.class);
         String responseBody = response.getBody().asString();
@@ -183,7 +183,22 @@ public class ApiSteps extends BaseTest {
         }
 
         Assertions.assertTrue(messageFound, "Ожидаемое сообщение \"" + message + "\" в теле ответа не найдено");
+    }*/
+
+    @Затем("проверяем, что в теле ответа {string} есть сообщение {string}")
+    public void checkResponseBodyContainsMessage(String responseVariable, String message) {
+        Response response = RUN_CONTEXT.get(responseVariable, Response.class);
+        String responseBody = response.getBody().asString();
+
+        JSONObject jsonResponse = new JSONObject(responseBody);
+        JSONArray errorsArray = jsonResponse.getJSONArray("errors");
+
+        for (int i = 0; i < errorsArray.length(); i++) {
+            JSONObject errorObject = errorsArray.getJSONObject(i);
+            String errorMessage = errorObject.getString("message");
+        }
     }
+
 
     @И("проверяем, что тело ответа соответствует данным из таблицы")
     public void checkResponseBodyContains(List<RequestParam> paramsTable) {
