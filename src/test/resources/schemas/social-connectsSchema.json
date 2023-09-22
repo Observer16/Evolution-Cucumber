@@ -1,0 +1,38 @@
+{
+  "title": "social-connects",
+  "description": "Auto generated JSON schema based on the 'social-connects' file",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "socialConnects": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "redirectUri": {
+                "type": "string"
+              },
+              "authUrl": {
+                "type": "string"
+              },
+              "clientId": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "scope": {
+                "type": "array",
+                "items": {}
+              },
+              "title": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

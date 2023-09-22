@@ -63,7 +63,6 @@ public class ApiSteps extends BaseTest {
         Response response = httpClient.sendRequest(method, address, paramsTable);
         RUN_CONTEXT.put(variableName, response);
         System.out.println(response.asPrettyString());
-
         RUN_CONTEXT.deleteKey("productId");
     }
 
