@@ -21,11 +21,41 @@
       |operation   |
       |erase       |
 
-    Дано выполнен PUT запрос на URL "/basket" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
+    Затем выполнен PUT запрос на URL "/basket" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
       | type   | name         | value            |
       | header | content-type | application/json |
       | body   | body         | {dataBody}       |
 
     И ответ содержит статус код 204
 
-    #Тогда проверяем, что схема "basketSchema.json" соответствует схеме из ответа
+    @negative
+    Сценарий: Отправить запрос для отчистки содержимого корзины, но не указав операцию
+
+      Дано создан объект таблицы для сохранения в переменную "dataBody" при отчистки корзины
+        |operation   |
+        |            |
+
+      Затем выполнен PUT запрос на URL "/basket" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
+        | type   | name         | value            |
+        | header | content-type | application/json |
+        | body   | body         | {dataBody}       |
+
+      И ответ содержит статус код 400
+
+      Затем проверяем, что в теле ответа "response" есть сообщение "Не указана операция"
+
+    @negative
+    Сценарий: Отправить запрос для отчистки содержимого корзины, но указав неверную операцию
+
+      Дано создан объект таблицы для сохранения в переменную "dataBody" при отчистки корзины
+        |operation   |
+        |clear       |
+
+      Затем выполнен PUT запрос на URL "/basket" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
+        | type   | name         | value            |
+        | header | content-type | application/json |
+        | body   | body         | {dataBody}       |
+
+      И ответ содержит статус код 400
+
+      Затем проверяем, что в теле ответа "response" есть сообщение "Неизвестная операция"

@@ -1,4 +1,4 @@
-package steps;
+package steps.common;
 
 import config.TestConfig;
 import impl.BaseTest;

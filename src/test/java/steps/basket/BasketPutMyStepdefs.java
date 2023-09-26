@@ -12,7 +12,6 @@ import static context.RunContext.RUN_CONTEXT;
 @Log4j2
 public class BasketPutMyStepdefs extends BaseTest {
 
-
     private int currentStepIndex = 0;
     @Затем("создан объект таблицы для сохранения в переменную {string} при отчистки корзины")
     public void createTableBody(String variableName, DataTable dataTable) {
