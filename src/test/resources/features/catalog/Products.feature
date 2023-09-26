@@ -17,7 +17,7 @@
     @positive
     Сценарий: Отправить запрос на получение списка товаров из заданной категории
 
-      Дано выполнен GET запрос на URL "/products" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
+      Когда выполнен GET запрос на URL "/products" с headers и parameters из таблицы. Полученный ответ сохранен в переменную "response"
       |type      |name          |value             |
       |header    |content-type  |application/json  |
       |parameter |categoryId    |1003001           |

@@ -66,6 +66,19 @@ public class ApiSteps extends BaseTest {
         RUN_CONTEXT.deleteKey("productId");
     }
 
+    @Когда("^выполнен (GET|POST|PUT|DELETE|PATCH) запрос на URL \"([^\"]*)\" с headers и ID из таблицы. Полученный ответ сохранен в переменную \"([^\"]*)\"$")
+    public void sendRequestAnnouncementId(String method, String url, String variableName, List<RequestParam> paramsTable) {
+        String announcementId = RUN_CONTEXT.get("announcementId", String.class);
+        String address = testConfig.getURL() + url;
+        if (announcementId != null && address.contains("{announcementId}")) {
+            address = address.replace("{announcementId}", announcementId);
+        }
+        log.info("Отправка {} запроса на URL: {}", method, address);
+        Response response = httpClient.sendRequest(method, address, paramsTable);
+        RUN_CONTEXT.put(variableName, response);
+        System.out.println(response.asPrettyString());
+    }
+
     /**
      * Проверяет, что код статуса ответа равен ожидаемому коду.
      *
@@ -97,6 +110,12 @@ public class ApiSteps extends BaseTest {
     public void ProductId(List<String> arg) {
         String productId = arg.get(0);
         RUN_CONTEXT.put("productId", productId);
+    }
+
+    @Дано("идентификатор объявления")
+    public void AnnouncementId(List<String> arg) {
+        String announcementId = arg.get(0);
+        RUN_CONTEXT.put("announcementId", announcementId);
     }
 
     @Затем("проверяем, что в заголовке {string} пришел новый токен")
