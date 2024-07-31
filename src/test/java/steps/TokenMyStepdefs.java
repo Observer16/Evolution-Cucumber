@@ -27,7 +27,7 @@ public class TokenMyStepdefs extends BaseTest {
     public void createTokenBody(String variableName, DataTable dataTable) {
         TokenBody tokenBody = new TokenBody(dataTable);
         String body = tokenBody.asJSON();
-        RUN_CONTEXT.put(variableName, body); // записываем body в переменную
+        RUN_CONTEXT.put(variableName, body); // записываем body в переменную.
         System.out.println(RUN_CONTEXT.get("body", String.class));
     }
 
